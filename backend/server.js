@@ -1,17 +1,15 @@
-// backend/index.js
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+const todosRouter = require("./routes/todo.js");
 
-// Middleware
+require("dotenv").config();
+app.use(cors());
 app.use(express.json());
 
-// Sample route
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.use("/api/todos", todosRouter);
 
-// Start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
