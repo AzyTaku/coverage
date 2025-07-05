@@ -6,6 +6,14 @@ const getAllTodos = async () => {
   return result.rows;
 };
 
+// Get only incomplete todos
+const getIncompleteTodos = async () => {
+  const result = await pool.query(
+    "SELECT * FROM todos WHERE completed = false ORDER BY id DESC"
+  );
+  return result.rows;
+};
+
 // Create a new todo
 const createTodo = async ({ title, description }) => {
   const result = await pool.query(
@@ -31,6 +39,7 @@ const deleteTodo = async (id) => {
 
 module.exports = {
   getAllTodos,
+  getIncompleteTodos,
   createTodo,
   toggleTodoCompleted,
   deleteTodo,

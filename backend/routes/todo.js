@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getAllTodos,
+  getIncompleteTodos,
   createTodo,
   toggleTodoCompleted,
   deleteTodo,
@@ -10,6 +11,12 @@ const {
 // GET all todos
 router.get("/", async (req, res) => {
   const todos = await getAllTodos();
+  res.json(todos);
+});
+
+// GET all incomplete todos
+router.get("/false", async (req, res) => {
+  const todos = await getIncompleteTodos();
   res.json(todos);
 });
 
@@ -31,7 +38,7 @@ router.put("/:id", async (req, res) => {
   res.json(updated);
 });
 
-// DELETE a todo
+// DELETE a todo  -- probably unused
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   await deleteTodo(id);
